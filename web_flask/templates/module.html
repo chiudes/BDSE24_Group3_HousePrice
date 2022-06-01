@@ -1,0 +1,502 @@
+{% extends "/index.html" %}
+
+{% block head %}
+{{ super() }}
+{% include 'parts/_leaflet.html' %}
+
+{% endblock head %}
+
+{% block main_wrapper %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="widget">
+                
+                
+
+
+                {% if modinit == 0 %}
+                <h4 class="text-capitalize mb-4">Choose Analysis</h4>
+                <p></p>
+                <form method="post" action="/module" class="sub-form">
+                <select id="select1" name="mod" class="form-control mb-3" aria-label="Default select example" onchange="myFunction()">
+                    <option value="0" selected>請選擇模型結果</option>
+                    <option value="1" >2021雙北行政區預測分析</option>
+                    <option value="2" >最佳模型分析結果</option>
+                </select>
+
+                <select id="select2" name=district class="form-control mb-3" aria-label="Default select example">
+                    <option value="0">請選擇地區</option>
+                    {% for col in district %}
+                    {# if col['id'] == 1 #}
+                    <!-- <option value="{{col['id']}}" selected>{{col['district']}}</option> -->
+                    {# else #}
+                    <option value="{{col['id']}}">{{col['district']}}區</option>
+                    {# endif #}
+                    {% endfor %}
+                </select>
+
+
+                <br>
+                <button type="submit" class="btn btn-main btn-small">Submit</button>
+                </form>
+
+                {% elif modinit == 1 %}
+                <h4 class="text-capitalize mb-4">Choose Analysis</h4>
+
+                <form method="post" action="/module" class="sub-form">
+                    <select id="select1" name="mod" class="form-control mb-3" aria-label="Default select example"  onchange="myFunction()">
+                        <option value="0" >請選擇模型結果</option>
+                        <option value="1" selected>2021雙北行政區預測分析</option>
+                        <option value="2" >最佳模型分析結果</option>
+                    </select>
+    
+                    <select id="select2" name=district class="form-control mb-3" aria-label="Default select example">
+                        <option value="0">請選擇地區</option>
+                        {% for col in district %}
+                        {# if col['id'] == 1 #}
+                        <!-- <option value="{{col['id']}}" selected>{{col['district']}}</option> -->
+                        {# else #}
+                        <option value="{{col['id']}}">{{col['district']}}區</option>
+                        {# endif #}
+                        {% endfor %}
+                    </select>
+
+
+                    <br>
+                    <button type="submit" class="btn btn-main btn-small">Submit</button>
+                    </form>
+
+                {% else %}
+                <h4 class="text-capitalize mb-4">Choose Analysis</h4>
+                <form method="post" action="/module" class="sub-form">
+
+                    <select id="select1" name="mod" class="form-control mb-3" aria-label="Default select example"  onchange="myFunction2()">
+                        <option value="0" >請選擇模型結果</option>
+                        <option value="1" >2021雙北行政區預測分析</option>
+                        <option value="2" selected>最佳模型分析結果</option>
+                    </select>
+
+                    <select id="select22" name=district class="form-control mb-3" aria-label="Default select example">
+                        <option value="0">請選擇地區</option>
+                        {% for col in district %}
+                        {# if col['id'] == 1 #}
+                        <!-- <option value="{{selected_ID}}" selected>{{col['district']}}</option> -->
+                        {# else #}
+                        <option value="{{col['id']}}">{{col['district']}}區</option>
+                        {# endif #}
+                        {% endfor %}
+                    </select>
+                    <!-- <input type="text" class="form-control mb-3" placeholder="Subscribe Now ..."> -->
+
+                    <br>
+                    <button type="submit" class="btn btn-main btn-small">Submit</button>
+                    <!-- <a href="#" class="btn btn-main btn-small">Commit</a> -->
+                </form>
+
+                
+
+                <!-- <form method="post" action="/module" class="sub-form">
+
+                    <select name="year" class="form-control mb-3" aria-label="Default select example">
+                        <option value="2021" >2021</option>
+                    </select>
+
+                    <select name=district class="form-control mb-3" aria-label="Default select example">
+                        {% for col in district %}
+                        {% if col['id'] == 1 %}
+                        <option value="{{col['id']}}" selected>{{col['district']}}</option>
+                        {% else %}
+                        <option value="{{col['id']}}">{{col['district']}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+
+                    <br>
+                    <button type="submit" class="btn btn-main btn-small">Submit</button>
+                </form> -->
+
+                    
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="map"></div>
+
+<a href="#Prophet">
+    <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_oi1gtsw5.json"
+        background="transparent" speed="1" style="width: 100px; height: 100px;" loop autoplay>
+    </lottie-player>
+</a>
+
+<div id="Prophet" style="padding-top: 100px;"></div>
+
+<div 
+    style="padding-top:3% !important;padding-bottom:3% !important; background: url('/static/images/bg/ProphetBG.png') fixed 30% 30%;background-size:contain">
+    <div style="padding-top:3% !important;">
+        <article class="article " style=" background-color:#e1ebf5 ">
+            <h1 id="chooseID" style="margin: 1% 0; color:#3e169c;">Prophet</h1>
+        </article>
+    </div>
+
+    <article id="arcl" class="article" style="background-color:hsl(194, 70%, 53%)">
+        <h1 id="interestID" style="margin: 1% 0; color:hwb(314 9% 77%)">房價預測</h1>
+        <!-- <figure style="border-style: solid; width: fit-content ; float: left;"> -->
+        <figure style="border-style: solid; width: fit-content ; margin:2% auto">
+            <!-- <a title="Capoo-Instagram" href="https://www.instagram.com/bugcat_capoo/"><img class="img0"
+                src="image/驕傲1.png"></a> -->
+            <img class="img-interestRate" src="static/images/analy/MacroEconomey.png">
+            <!-- <figcaption class="txt" style="font-size: large; font-family:fantasy;color:hsl(0, 0%, 3%)">Careful, cause I
+            have a sharp knife!</figcaption> -->
+        </figure>
+    
+        <!-- <p class="pUp">貓貓蟲咖波（英語：Bugcat Capoo），是由台灣漫畫家亞拉所創造出的漫畫角色，其設定為像貓又像蟲（豸）的藍色小怪物，暴力獵奇又萌萌可愛，最愛吃肉。</p>
+    <br>
+    <p>原先是作者在巴哈姆特電玩資訊站個人小屋連載的自創角色，後於2015年LINE Webtoon漫畫比賽得到短篇冠軍，而在LINE Webtoon進行連載。</p>
+    <br>
+    <p>2020年3月已於Webtoon完結，現在在粉絲專頁與YouTube網站繼續短篇漫畫與動畫連載。</p>
+    <br>
+    <br> -->
+        <h3 id="articleText">
+           <ul>
+               <li>藍色的曲線是模型預測新北雙北每年平均的坪數價格，黑色點是實際平均的坪數價格，可以看到17、18年之間實際坪數的價格遠低於模型預測的價格</li>
+               <li>因為政府政策的關係，導致該期間坪數價格大福下跌，也可以看到模型預測2022年的房價總體是上漲</li>
+               <li>下面圖表是表示歷年來的坪數價格走向，我們可以看到2、3月是歷年買房人氣比較高，
+                推測是因為農曆新年關係，所以買房人氣較高，而四月底五月初時買方人氣比較低，預測是因為繳稅季節，買房意願不高，比較值得注意的是，一般民俗是鬼月不宜買房，但是從圖表可以看到
+                鬼月期間的曲線是沒有那麼劇烈，因此可以合理推測在台北新北，買房比較不受鬼月影響。</li>
+            </ul>
+        </h3>
+        <ul>
+            <!-- <li>中性，本作品主角，生日是2014年5月19日(作者設定)，外型頭部像貓身體像蟲的小怪物，毛皮是藍色，背上有三條紋路，平時有六隻腳(有時會依比例拉長而增多)</li> -->
+            <!-- <li>卵生，但是父母不詳</li>
+            <li>極度喜歡吃肉，身邊活著的任何小動物都會被抓來吃，但絕對不吃蔬菜(但甜甜的水果可以)，一吃就會嘔吐(漫畫表現為吐出彩虹)，似乎對巧克力免疫(貓不能吃巧克力，但咖波除了曾經流點鼻血外卻不受影響。)
+            </li>
+            <li>被殺蟲劑噴到也會昏迷。</li>
+            <li>原本出生時在野外，在一次寒流快被凍死的危機下被女主人拉拉撿回家收養當寵物</li>
+            <li>有時不乖或是做壞事蠢事會被女主人拉拉揍</li>
+            <li>生氣時會把敵人吃掉（有時還會變大），連機器也能吃</li>
+            <li>討厭被讀者稱「藍色的熊」，如果在Line對話中以「藍熊」、「藍色的熊」稱呼咖波，會被咖波以臭青蛙回罵。（來源自FB被《掰掰啾啾》和《Cherng》稱熊或「藍熊」，詳細的在外部連結）</li> -->
+        </ul>
+        </h2>
+    </article>
+    
+    <article id="arcl" class="article" style="background-color:hsl(194, 70%, 53%)">
+        <h1 id="interestID" style="margin: 1% 0; color:hwb(314 9% 77%)">長期穩定</h1>
+        <!-- <figure style="border-style: solid; width: fit-content ; float: left;"> -->
+        <figure style="border-style: solid; width: fit-content ; margin:2% auto">
+            <!-- <a title="Capoo-Instagram" href="https://www.instagram.com/bugcat_capoo/"><img class="img0"
+                src="image/驕傲1.png"></a> -->
+            <img class="img-interestRate" src="static/images/analy/longTerm.png">
+            <!-- <figcaption class="txt" style="font-size: large; font-family:fantasy;color:hsl(0, 0%, 3%)">Careful, cause I
+            have a sharp knife!</figcaption> -->
+        </figure>
+    
+        <!-- <p class="pUp">貓貓蟲咖波（英語：Bugcat Capoo），是由台灣漫畫家亞拉所創造出的漫畫角色，其設定為像貓又像蟲（豸）的藍色小怪物，暴力獵奇又萌萌可愛，最愛吃肉。</p>
+    <br>
+    <p>原先是作者在巴哈姆特電玩資訊站個人小屋連載的自創角色，後於2015年LINE Webtoon漫畫比賽得到短篇冠軍，而在LINE Webtoon進行連載。</p>
+    <br>
+    <p>2020年3月已於Webtoon完結，現在在粉絲專頁與YouTube網站繼續短篇漫畫與動畫連載。</p>
+    <br>
+    <br> -->
+        <h3 id="articleText">
+           <ul>
+               <li>挑出了南港、板橋兩個行政區，是房價漲幅相對穩定，可以供買房民眾參考，比較要注意的是，歷年三月前後漲幅較大，若那時候要買房可能需要謹慎估。</li>
+            </ul>
+        </h3>
+        <ul>
+            <!-- <li>中性，本作品主角，生日是2014年5月19日(作者設定)，外型頭部像貓身體像蟲的小怪物，毛皮是藍色，背上有三條紋路，平時有六隻腳(有時會依比例拉長而增多)</li> -->
+            <!-- <li>卵生，但是父母不詳</li>
+            <li>極度喜歡吃肉，身邊活著的任何小動物都會被抓來吃，但絕對不吃蔬菜(但甜甜的水果可以)，一吃就會嘔吐(漫畫表現為吐出彩虹)，似乎對巧克力免疫(貓不能吃巧克力，但咖波除了曾經流點鼻血外卻不受影響。)
+            </li>
+            <li>被殺蟲劑噴到也會昏迷。</li>
+            <li>原本出生時在野外，在一次寒流快被凍死的危機下被女主人拉拉撿回家收養當寵物</li>
+            <li>有時不乖或是做壞事蠢事會被女主人拉拉揍</li>
+            <li>生氣時會把敵人吃掉（有時還會變大），連機器也能吃</li>
+            <li>討厭被讀者稱「藍色的熊」，如果在Line對話中以「藍熊」、「藍色的熊」稱呼咖波，會被咖波以臭青蛙回罵。（來源自FB被《掰掰啾啾》和《Cherng》稱熊或「藍熊」，詳細的在外部連結）</li> -->
+        </ul>
+        </h2>
+    </article>
+
+    <article id="arcl" class="article" style="background-color:hsl(194, 70%, 53%)">
+        <h1 id="interestID" style="margin: 1% 0; color:hwb(314 9% 77%)">大幅度漲幅</h1>
+        <!-- <figure style="border-style: solid; width: fit-content ; float: left;"> -->
+        <figure style="border-style: solid; width: fit-content ; margin:2% auto">
+            <!-- <a title="Capoo-Instagram" href="https://www.instagram.com/bugcat_capoo/"><img class="img0"
+                src="image/驕傲1.png"></a> -->
+            <img class="img-interestRate" src="static/images/analy/BigIncrease1.png">
+            <!-- <figcaption class="txt" style="font-size: large; font-family:fantasy;color:hsl(0, 0%, 3%)">Careful, cause I
+            have a sharp knife!</figcaption> -->
+        </figure>
+
+        <figure style="border-style: solid; width: fit-content ; margin:2% auto">
+            <!-- <a title="Capoo-Instagram" href="https://www.instagram.com/bugcat_capoo/"><img class="img0"
+                src="image/驕傲1.png"></a> -->
+            <img class="img-interestRate" src="static/images/analy/BigIncrease2.png">
+            <!-- <figcaption class="txt" style="font-size: large; font-family:fantasy;color:hsl(0, 0%, 3%)">Careful, cause I
+            have a sharp knife!</figcaption> -->
+        </figure>
+
+        <h3 id="articleText">
+           <ul>
+               <li>林口區、淡水區、新莊區、樹林區 比其他地區相對漲幅大，買方民眾須謹慎評估。</li>
+            </ul>
+        </h3>
+        <ul>
+            <!-- <li>中性，本作品主角，生日是2014年5月19日(作者設定)，外型頭部像貓身體像蟲的小怪物，毛皮是藍色，背上有三條紋路，平時有六隻腳(有時會依比例拉長而增多)</li> -->
+            <!-- <li>卵生，但是父母不詳</li>
+            <li>極度喜歡吃肉，身邊活著的任何小動物都會被抓來吃，但絕對不吃蔬菜(但甜甜的水果可以)，一吃就會嘔吐(漫畫表現為吐出彩虹)，似乎對巧克力免疫(貓不能吃巧克力，但咖波除了曾經流點鼻血外卻不受影響。)
+            </li>
+            <li>被殺蟲劑噴到也會昏迷。</li>
+            <li>原本出生時在野外，在一次寒流快被凍死的危機下被女主人拉拉撿回家收養當寵物</li>
+            <li>有時不乖或是做壞事蠢事會被女主人拉拉揍</li>
+            <li>生氣時會把敵人吃掉（有時還會變大），連機器也能吃</li>
+            <li>討厭被讀者稱「藍色的熊」，如果在Line對話中以「藍熊」、「藍色的熊」稱呼咖波，會被咖波以臭青蛙回罵。（來源自FB被《掰掰啾啾》和《Cherng》稱熊或「藍熊」，詳細的在外部連結）</li> -->
+        </ul>
+        </h2>
+    </article>
+
+    
+    <!-- <div class='tableauPlaceholder' id='viz1653548655594' style='position: relative'>
+        <noscript><a href='#'>
+                <img alt='儀表板窗格 1 '
+                    src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;TE&#47;TEMP_122ogve0rfu9031502orl1tiekq5&#47;1&#47;1_rss.png'
+                    style='border: none' />
+            </a></noscript>
+        <object class='tableauViz' style='display:none;'>
+            <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+            <param name='embed_code_version' value='3' />
+            <param name='site_root' value='' />
+            <param name='name' value='TEMP_122ogve0rfu9031502orl1tiekq5&#47;1' />
+            <param name='tabs' value='no' />
+            <param name='toolbar' value='yes' />
+            <param name='static_image'
+                value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;TE&#47;TEMP_122ogve0rfu9031502orl1tiekq5&#47;1&#47;1.png' />
+            <param name='animate_transition' value='yes' />
+            <param name='display_static_image' value='yes' />
+            <param name='display_spinner' value='yes' />
+            <param name='display_overlay' value='yes' />
+            <param name='display_count' value='yes' />
+            <param name='language' value='en-US' />
+            <param name='filter' value='publish=yes' />
+        </object>
+    </div>
+    <script type='text/javascript'>
+        var divElement = document.getElementById('viz1653548655594');
+        var vizElement = divElement.getElementsByTagName('object')[0];
+        if (divElement.offsetWidth > 800) { vizElement.style.width = '100%'; vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px'; } else if (divElement.offsetWidth > 500) { vizElement.style.width = '100%'; vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px'; } else { vizElement.style.width = '100%'; vizElement.style.height = '2077px'; }
+        var scriptElement = document.createElement('script');
+        scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+        vizElement.parentNode.insertBefore(scriptElement, vizElement);
+
+    </script> -->
+</div>
+
+<!-- <div style="padding-top: 100px;"></div> -->
+
+
+
+
+
+
+{% endblock main_wrapper %}
+
+{% block footer %}
+    
+<footer class="footer fotsec" style="background-color: hsl(240, 39%, 43%);">
+    <div class="container">
+        <div class="row1">
+
+        </div>
+
+        <div class="footer-btm pt-4 py-44">
+            <div class="row1">
+                <div class="col-lg-66" id="">
+                    <div class="copyright">
+                        Copyright &copy; 2022 <span class="text-color"></span>BDSE24 Team3<a
+                            href="https://themefisher.com/" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+{% endblock footer %}
+
+{% block scripts %}
+{{ super() }}
+
+<script type="text/javascript">
+    
+    var map = L.map('map', {
+        center: [25.029764687428475, 121.6012807284144],
+        zoom: 9.5
+    });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var markers = new L.MarkerClusterGroup().addTo(map);
+
+    RRR = {{ RRR }}
+    
+    var latlngs = [[51.505,-0.09],[52,-1],[51,-0.05],[51.3,-0.06]]
+    var polygon = L.polygon(latlngs, {color: '#000eff',fillColor:'#0000ed',
+                    weight:1}).addTo(map);
+
+    if (RRR == 1) {
+        L.marker([25.047058, 121.519752])
+            .addTo(map)
+            .bindPopup("I'm here")
+    }
+    else if (RRR == 2) {
+
+        var tmpALL = {{ tmpAll| tojson }};
+
+        tmpALL = JSON.parse(tmpALL);
+
+        /*for (let i = 0; i < tmpALL.length; i++) {
+
+            var tmpMark = [tmpALL[i][0], tmpALL[i][1]]
+
+            L.marker(tmpMark)
+                .addTo(map)
+                .bindPopup(tmpALL[i][2] + " <br> " + tmpALL[i][3])
+            //.openPopup();
+        }*/
+
+        for (let i = 0; i < tmpALL.length; i++) {
+
+            var tmpMark = [tmpALL[i][0], tmpALL[i][1]]
+
+            markers.addLayer(L.marker(tmpMark)
+            .bindPopup(
+                "地址 : " + tmpALL[i][2] + " <br> " + 
+                //"總價 : " + tmpALL[i][3] + "萬 <br><br>"+  
+                //"預測價格 : " + tmpALL[i][4] + "萬 <br><br>" +
+                "坪數 : " + tmpALL[i][5] + "坪 <br>"+
+                "每坪價格 : " + tmpALL[i][3] + "萬 <br>" +
+                "預測每坪價格 : " + tmpALL[i][4] + "萬 <br>"
+                )
+            )
+        }
+
+    }
+    else {
+        //var latlngs = [[51.505,-0.09],[52,-1],[51,-0.05],[51.3,-0.06]]
+        //var polygon = L.polygon(latlngs, {color: '#000eff',fillColor:'#0000ed',
+        //            weight:1}).addTo(map);
+        var tmpInfo_2021 = {{ tmpInfo_2021| tojson }};
+
+        //tmpInfo_2021 = JSON.parse(tmpInfo_2021);
+
+        fetch('returnjson', {
+            method: "GET"
+        }).then(function (response) {
+            //console.log(response)
+            return response.json();
+        }).then(function(result){
+            console.table(result)
+            for (let obj of result){
+                console.log(obj['district'])
+                var polygon = L.polygon(obj['arr'], {color: '#000eff',fillColor:'#0000ed',
+                weight:1}).addTo(map).bindPopup(
+                    obj['district'] + "<br>" +
+                    "實際地區均價" + obj['real_price'] + "<br>" +
+                    "預測地區均價" + obj['anal_price'] + "<br>" +
+                    "差值" + obj['diff']
+                )
+                //.openPopup();
+            }
+        })
+
+
+        /*.then(function (arr) {
+            console.table(arr)
+            for (let obj of arr) {
+                markers.addLayer(L.marker([obj['lat'], obj['lon']]))
+                    .bindPopup(`${obj['AA11']}`);
+            }
+        });
+        map.addLayer(markers);*/
+
+        /*var DAAN = [
+        [25.045325679381627, 121.53303623199463],
+        [25.044625834670256, 121.53694152832031],
+        [25.044586954291397, 121.54372215270996],
+        [25.04513127847357, 121.54664039611816],
+        [25.044625834670256, 121.54904365539551],
+        [25.04415926931029, 121.55359268188477],
+        [25.044820236379632, 121.55758380889893],
+        [25.029383781527702, 121.55741214752197],
+        [25.027789477798425, 121.55646800994873],
+        [25.024134166676898, 121.55256271362305],
+        [25.017134330924947, 121.56002998352051],
+        [25.016006542277147, 121.56067371368408],
+        [25.013400921994947, 121.5631628036499],
+        [25.011456393220246, 121.56346321105957],
+        [25.01001742210412, 121.56522274017334],
+        [25.00826729937593, 121.56569480895996],
+        [25.007178321536887, 121.564621925354],
+        [25.0102118786456, 121.56045913696289],
+        [25.012273099055935, 121.55706882476807],
+        [25.011767519893326, 121.5558671951294],
+        [25.01079524642272, 121.55462265014648],
+        [25.009278484438518, 121.55376434326172],
+        [25.008811784674876, 121.55226230621338],
+        [25.009745182428812, 121.55110359191895],
+        [25.009667399553546, 121.54917240142822],
+        [25.009239592859274, 121.54792785644531],
+        [25.00772281166325, 121.54479503631592],
+        [25.00783948780488, 121.54187679290771],
+        [25.0084228668505, 121.53930187225342],
+        [25.008617325916628, 121.53788566589355],
+        [25.011339720514613, 121.53732776641846],
+        [25.014412064788928, 121.5347957611084],
+        [25.019623207143603, 121.52934551239014],
+        [25.0231231039545, 121.5252685546875],
+        [25.02806167746246, 121.52174949645996],
+        [25.032339021458675, 121.52239322662354],
+        [25.035488606709624, 121.52423858642578],
+        [25.034088801025142, 121.5272855758667],
+        [25.03346666003844, 121.53273582458496],
+        [25.04485911668452, 121.53290748596191]
+      ]*/
+
+
+        //var polygon = L.polygon(DAAN, {color: '#000eff',fillColor:'#0000ed',
+        //            weight:1}).addTo(map).bindPopup("大安區").openPopup();
+        
+
+
+    }
+
+    
+    /*async function load_shapefile() {
+        let url = 'static/towns/台北市/大安區.json';
+        let shape_obj = await (await fetch(url)).json();
+        return shape_obj
+    }
+    L.geoJson(load_shapefile()).addTo(map);*/
+
+
+
+    function myFunction() {
+        var x = document.getElementById("select1").value;
+        if (x == "2") document.getElementById("select2").style.display = "initial" 
+        else document.getElementById("select2").style.display = "none";
+    }
+
+    function myFunction2() {
+        var x = document.getElementById("select1").value;
+        if (x == "2") document.getElementById("select22").style.display = "initial" 
+        else document.getElementById("select22").style.display = "none";
+    }
+
+</script>
+
+{% endblock scripts %}

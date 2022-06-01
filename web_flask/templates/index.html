@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="megakit,business,company,agency,multipurpose,modern,bootstrap4">
+    <meta name="author" content="themefisher.com">
+    <title> {% block title %} 房價小巧思 {% endblock title %}</title>
+
+
+    {% block styles %}
+    <!-- icon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='icon/favicon.ico') }}">
+
+    <!-- bootstrap.min css -->
+    <link rel="stylesheet" href="{{ url_for( 'static', filename='plugins/bootstrap/css/bootstrap.min.css') }}">
+
+    <!-- Icon Font Css -->
+    <link rel="stylesheet" href="{{ url_for( 'static', filename='plugins/themify/css/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ url_for( 'static',filename='plugins/fontawesome/css/all.css') }}">
+    <link rel="stylesheet" href="{{ url_for( 'static',filename='plugins/magnific-popup/dist/magnific-popup.css') }}">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="{{ url_for( 'static',filename='plugins/slick-carousel/slick/slick.css') }}">
+    <link rel="stylesheet" href="{{ url_for( 'static',filename='plugins/slick-carousel/slick/slick-theme.css') }}">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for( 'static',filename='css/style.css') }}">
+    <!-- <link rel="stylesheet" href="/static/coffee/css/style2.css"> -->
+    <link rel="stylesheet" href="/static/coffee/css/style.css">
+    {% endblock styles%}
+
+    {% endblock head %}
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+</head>
+
+<body id="body">
+
+    <header class="header navigation">
+        <!-- <nav class="navbar navbar-expand-lg  py-4" id="navbar"> -->
+        <nav class="navbar navbar-expand-lg" id="navbar">
+            <div class="container">
+                <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_ttbuassa.json"
+                    background="transparent" speed="1" style="width: 100px; height: 100px;" loop autoplay>
+                </lottie-player>
+                <a class="navbar-brand" href="/">
+                    House<span>Price</span>
+                </a>
+
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                    data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="fa fa-bars"></span>
+                </button>
+
+                <div class="collapse navbar-collapse text-center" id="navbarsExample09">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="module">Module</a></li>
+                        <!-- <li class="nav-item"><a class="nav-link" href="analysis">Analysis</a></li> -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="analysis" id="dropdown05" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Analysis</a>
+                            <!-- <a class="nav-link dropdown-toggle" href="analysis_all" id="dropdown05" data-toggle="dropdown">Analysis</a> -->
+                            <ul class="dropdown-menu" aria-labelledby="dropdown05">
+                                <li><a class="dropdown-item" href="analysis">Macroeconomics Analysis</a></li>
+                                <li><a class="dropdown-item" href="analysis_population">population Analysis</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="navbar-item">
+                            <a href="contact" class="btn btn-solid-border btn-round-full">call me maybe</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+
+    <div style="border: 3px; margin: 21px;">
+        <div></div>
+        <span class="navbar navbar-expand-lg py-4">Price</span>
+    </div>
+
+    {% block main_wrapper %}
+
+    <div class="main-wrapper ">
+        <section class="slider">
+            <div class="container">
+                <div class="row1">
+                    <div class="col-lg-9 col-md-10">
+                        <div class="block">
+                            <span class="d-block mb-3 text-white text-capitalize">BDSE24 Team3</span>
+                            <!-- <h1 class="animated fadeInUp mb-5">房價小巧思，<br> 資料報你知。</h1> -->
+                            <h1 class="firstlook mb-5">房價小巧思，<br> 資料報你知。</h1>
+                            <!-- <a href="#" target="_blank" class="btn btn-main animated fadeInUp btn-round-full">Get
+                                started<i class="btn-icon fa fa-angle-right ml-2"></i></a> -->
+                        </div>
+                    </div>
+                </div>
+                <a href="#module">
+                    <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_oi1gtsw5.json"
+                        background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay>
+                    </lottie-player>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <div id="module" style="background: url('/static/images/bg/darkforest.jpg') fixed 50% 50%;background-size:cover">
+        <div style="padding:40px ">
+            <section class="page-section-cof clearfix-cof">
+                <div class="container-cof">
+                    <div class="intro-cof">
+                        <img class="intro-cof-img-cof img-fluid-cof mb-3-cof mb-lg-0-cof rounded-cof"
+                            src="/static/images/bg/animation_640.gif" alt="...">
+
+                        <div class="intro-cof-text-cof left-0 text-center-cof bg-faded-cof p-5-cof rounded-cof">
+                            <h2 class="section-heading-cof mb-4-cof">
+                                <span class="section-heading-upper-cof">模型分析</span>
+                                <!-- <span id="text1" class="section-heading-lower-cof" >動態地圖</span> -->
+                                <span id="text1" class="" >動態地圖</span>
+                            </h2>
+                            <p class="mb-3-cof">經由多方的模型訓練，預測出的分析結果，地區性均價、總價... <br>
+                                有我們的超級模型，就沒在跟你怕!
+                            </p>
+                            <div class="intro-cof-button-cof mx-auto-cof"><a class="btn-cof btn-cof-primary btn-cof-xl"
+                                    href="module">Go To Module Map</a></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div style="padding:40px ">
+            <section class="page-section-cof clearfix-cof">
+                <div class="container-cof">
+                    <div class="intro-cof">
+                        <img class="intro-cof-img-cof img-fluid-cof mb-3-cof mb-lg-0-cof rounded-cof"
+                            src="/static/images/bg/analysis_640.gif" alt="...">
+                        <div class="intro-cof-text-cof left-0 text-center-cof bg-faded-cof p-5-cof rounded-cof">
+                            <h2 class="section-heading-cof mb-4-cof">
+                                <span class="section-heading-upper-cof">資料分析</span>
+                                <!-- <span id="text1" class="section-heading-lower-cof" >數據圖表</span> -->
+                                <span id="text1" class="" >數據圖表</span>
+                            </h2>
+                            <p class="mb-3-cof">穿梭於數據之間的特性，比對總體經濟、人口<br>
+                                挖掘出數據之間的隱藏秘密!
+                            </p>
+                            <div class="intro-cof-button-cof mx-auto-cof"><a class="btn-cof btn-cof-primary btn-cof-xl"
+                                    href="analysis">Let's Analysis</a></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+    {% endblock main_wrapper %}
+
+
+
+
+
+    {% block footer %}
+
+    <footer class="footer fotsec" id="indexfoot">
+        <div class="container">
+            <div class="row1">
+
+            </div>
+
+            <div class="footer-btm pt-4 py-44">
+                <div class="row1">
+                    <div class="col-lg-66" id="">
+                        <div class="copyright">
+                            Copyright &copy; 2022 <span class="text-color"></span>BDSE24 Team3<a
+                                href="https://themefisher.com/" target="_blank"></a>
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-6 text-left text-lg-right">
+                        <ul class="list-inline footer-socials">
+                            <li class="list-inline-item"><a href="https://www.facebook.com/themefisher"><i
+                                        class="ti-facebook mr-2"></i>Facebook</a></li>
+                            <li class="list-inline-item"><a href="https://twitter.com/themefisher"><i
+                                        class="ti-twitter mr-2"></i>Twitter</a></li>
+                            <li class="list-inline-item"><a href="https://www.pinterest.com/themefisher/"><i
+                                        class="ti-linkedin mr-2 "></i>Linkedin</a></li>
+                        </ul>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {% endblock footer %}
+
+    {% block scripts %}
+    <!-- Main jQuery -->
+    <script src="{{ url_for('static', filename='plugins/jquery/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/contact.js') }}"></script>
+
+    <!-- Bootstrap 4.3.1 -->
+    <script src="{{ url_for('static', filename='plugins/bootstrap/js/popper.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+
+    <!--  Magnific Popup-->
+    <script src="{{ url_for('static', filename='plugins/magnific-popup/dist/jquery.magnific-popup.min.js') }}"></script>
+
+    <!-- Slick Slider -->
+    <script src="{{ url_for('static', filename='plugins/slick-carousel/slick/slick.min.js') }}"></script>
+
+    <!-- Counterup -->
+    <script src="{{ url_for('static', filename='plugins/counterup/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/counterup/jquery.counterup.min.js') }}"></script>
+
+    <!-- Google Map -->
+    <!-- <script src="plugins/google-map/map.js"></script> -->
+    <!-- <script src="{{ url_for('static', filename='plugins/google-map/map.js') }}"></script>
+    <script
+        src="{{ url_for('static', filename='https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap') }}"></script> -->
+
+    <!-- <script src="js/script.js"></script> -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    {% endblock scripts %}
+
+</body>
+
+</html>
